@@ -2,11 +2,11 @@
 
 # Objetivos do projeto
 > - Alterar a rotina de CI para executar em qualquer branch, utilizar estratégias de matrizes para executar a rotina em múltiplos sistemas operacionais diferentes e trabalhar com limitações de estratégicas.
-> - Executar testes automatizados para linguagem Go, executar testes de forma verbosa, Acessar o GitHub Actions e criar rotinas em CI.
-> - Quais são os principais campos dos Jobs como runs-on, steps e name. Como executar código dentro da rotina de CI e iniciar um containner Docker dentro de uma pipeline.
-> - Alterar a ordem de execução de cada comando dentro de cada Job, criar um segundo Job, visualizar as rotinas no GitHub Actions e verificar erros e forçar um erro para análise.
-> - Trabalhar com estratégias de matrizes, criar e utilizar variaveis como a go-version e utilizar o secrets.
-
+> - Criar um dockerfile para colocar o nosso programa dentro de uma imagem docker, definindo a imagem base, a porta e os comandos que devem ser executados durante a sua criação.
+> - Alterar a aplicação para ler variáveis de ambiente, permitindo assim configurar a utilização de bancos de dados que não estão na mesma máquina.
+> - Permitir que a aplicação se conecte a qualquer banco de dados, podendo definir o banco de acordo com o ambiente, e não dependendo de bancos de dados locais.
+> - Definir variáveis de ambiente na imagem docker, assim podemos deixar a aplicação que está dentro do container igual ao que que estava fora dele, porém podendo configurar mudando os seus valores.
+> - Definir as variáveis de ambiente na rotina de CI, e permitir assim que os testes continuem funcionando corretamente.
 
 # Tecnologia Usada
 > - [x] HTML5
@@ -18,17 +18,3 @@
 > - [x] GitHub
 > - [x] VSC
 
-# Etapas do Test
-
-> - Dentro de WORKFLOWS temos o arquivo Test_Aplication02 go.yml
-> - O teste foi separado em duas etapas dentro do Jobs.
-
-> - Etapa 01 (test) - que primeiro carregou e criou o banco de dados através do comando docker-compose e depois roudou test do arquivo main_test.go
-> - Etapa 02 (build) - ficou responsavel somente pela execução do arquivo main.go
-
-> - Foram usadas para teste duas funções:
-> - fun TestVerificaStatusCodeDaSaudacaoComParametro()
-> - fun TestListaTodosOsAlunosHanlder()
-
-> - Também foi forçado um erro no mockDaResposta := '{"API diz":"E ai gui, tudo beleza?"}' PARA '{"API diz":"Oi Gui, tudo beleza?"}'
-> - Assim nosso test acusou o erro e nos mostrou a menssagem de erro sobre oque a aplicação esperava exibir e oque a aplicação realmente exibiu.
