@@ -27,6 +27,13 @@
 
 <img width="1890" alt="GOTest" src="https://github.com/edsonebonelli/GitHubActions_Docker_Pipelines/assets/98748057/007a23c4-69b4-46c8-9619-b196b3cc9e85">
 
+> - Como organizar as rotinas de CI em vários arquivos, ficando assim mais fácil de modificar e dar manutenção futuramente.
+> - O que é o marketplace do Github Actions, que nos fornece várias rotinas prontas para usarmos, assim não precisamos resolver problemas ou escrever códigos que já foram feitos por outras pessoas.
+> - Preparar o ambiente para criarmos a imagem Docker, buscando e utilizando uma rotina do marketplace do Actions.
+
+<img width="1897" alt="ConfigurandoDocker" src="https://github.com/edsonebonelli/GitHubActions_Docker_Pipelines/assets/98748057/9c2fd9c9-3f92-4e89-872b-b7818eda9409">
+
+
 
 
 
