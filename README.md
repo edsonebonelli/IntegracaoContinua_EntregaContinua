@@ -11,7 +11,7 @@
 > - [x] GitHub
 > - [x] VSC
 
-# Objetivos do projeto
+# Etapas do Projeto
 > - Alterar a rotina de CI para executar em qualquer branch, utilizar estratégias de matrizes para executar a rotina em múltiplos sistemas operacionais diferentes e trabalhar com limitações de estratégicas.
 > - Criar um dockerfile para colocar o nosso programa dentro de uma imagem docker, definindo a imagem base, a porta e os comandos que devem ser executados durante a sua criação.
 
@@ -32,6 +32,12 @@
 > - Preparar o ambiente para criarmos a imagem Docker, buscando e utilizando uma rotina do marketplace do Actions.
 
 <img width="1897" alt="ConfigurandoDocker" src="https://github.com/edsonebonelli/GitHubActions_Docker_Pipelines/assets/98748057/9c2fd9c9-3f92-4e89-872b-b7818eda9409">
+
+> - Criar uma imagem Docker automaticamente, usando a rotina de CI e uma nova rotina do marketplace, lembrando que essa rotina precisa de alguns campos de configuração como o context: para a pasta de execução.
+> - Salvar um arquivo através dos artefatos; assim é possível baixar os arquivos e verificar se a rotina está funcionando como deveria.
+> - Baixar um artefato salvo, evitando assim ter que repetir processos e gastar tempo desnecessário com coisas que já fizemos, como a compilação.
+
+<img width="1896" alt="Marketeplace" src="https://github.com/edsonebonelli/GitHubActions_Docker_Pipelines/assets/98748057/03448be3-2ade-4503-96b6-6289d528ed7d">
 
 
 
