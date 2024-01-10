@@ -8,6 +8,8 @@
 > - [x] Docker
 > - [x] Pipeline
 > - [x] Container
+> - [x] GitHub
+> - [x] GitHub Actions
 > - [x] Visual Studio Code
 
 # Etapas do projeto
