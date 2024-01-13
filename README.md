@@ -1,4 +1,4 @@
-# Pipeline de Entrega e Implementação Contínua na EC2
+# Integração Contínua e Entrega Contínua 
 
 # Tecnologia Usada
 > - [x] HTML5.
@@ -12,7 +12,7 @@
 > - [x] GitHub Actions
 > - [x] Visual Studio Code
 
-# Etapas do projeto
+# Etapas do projeto (Pipeline de entrega e implementação contínua na EC)
 
 # Planejamento
 > - Como planejar o que deve ser feito, montando um plano de ação antes de começar a mexer na infraestrutura.
@@ -38,3 +38,6 @@
 > - Iniciar a aplicação utilizando o nohup para a nossa aplicação não depender do terminal e o & para que ela possa ser executada em segundo plano.
 > - Redirecionar saídas dos nossos comandos para um arquivo, permitindo executar o comando da nossa API sem apresentar o erro no Github Actions que impedia a execução da aplicação.
 > - Redirecionar as entradas para a aplicação não travar se for necessário alguma entrada pelo console, mantendo ela em execução o tempo todo.
+
+# Etapas do projeto (Automatizando o Deploy no Amazon ECS)
+
