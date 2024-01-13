@@ -39,5 +39,3 @@
 > - Redirecionar saídas dos nossos comandos para um arquivo, permitindo executar o comando da nossa API sem apresentar o erro no Github Actions que impedia a execução da aplicação.
 > - Redirecionar as entradas para a aplicação não travar se for necessário alguma entrada pelo console, mantendo ela em execução o tempo todo.
 
-# Etapas da Branch Automatizando o Deploy no Amazon ECS
-
