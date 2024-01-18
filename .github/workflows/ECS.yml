@@ -17,7 +17,13 @@ jobs:
         
     - name: Obtendo arquivo da tarefa
       run: aws ecs describe-task-definition --task-definition Tarefa_API-Go --query taskDefinition > task-definition.json
-
+    
+    # PREPARANDO O ROLLBACK
+    # Aqui fazemos a cópia de nossa tarefa antiga, ou seja, sem nenhuma alteração. Então criamos uma nova 
+    # linha de comandos como o nome de copia do task-definition.
+    # Em seguida na linha de baixo, definimos a execução o comando para executar a copia é:
+    # cp (nome do arquivo original) seguido pelo nome do arquivo que será salvo.
+    
     - name: copia do task-definition
       run: cp task-definition.json task-definition.json.old
 
@@ -43,3 +49,22 @@ jobs:
         service: Servico_API-Go
         cluster: API-GO
         wait-for-service-stability: true
+
+    # Depois de salvar a tarefa antiga, podemos começar a trabalhar com ROLLBACK podendo ser dividido em duas partes
+    # - Verificação
+    # - Rollback de Versão
+    # Para a verificação, precisamos realizar uma requisição. Para isso, podemos usar o comando Wget ou encontar uma rotina que faça isso.
+    # Nesse caso usaremos um comando, afinal, quando não estamos trabalhando com usuários, senhas ou plataformas proprietárias como a AWS os comandos são mais garantidos, pois não tendem ter alterações.
+    # OBS: Embora estamos usando o ECS para nosso container, nossa aplicação tem um balanceador de carga que fica no EC2.
+    
+    - name: Requisição
+      continue-on-error: true
+      run: sleep 30s ; wget LB-API-Go-908865819.us-east-2.elb.amazonaws.com:8000/bruno
+
+    # Feito isso nossa requisição está pronta
+    # Mas, o que acontece se a requisição der erro?
+    # O padrão do GitHub Actions é cancelar a rotina. Isso significa que tudo o que tiver abaixo da requisição não será executado, como o Rollback.
+    # Para evitar que isso aconteça colocamos a tag especial (continue-on-error= true).
+
+    # OBS: Embora no passo anterior definimos (wait-for-service-stability), ou seja, esperar pela estabilidade do nosso serviço, pode acontecer do balanceador de carga não ter cadastrado.
+    #      nosso container para começar a enviar as requisições a cada 10 segundos, conforme definimos.
