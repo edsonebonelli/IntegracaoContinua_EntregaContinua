@@ -59,7 +59,7 @@ jobs:
     
     - name: Requisição
       continue-on-error: true
-      run: sleep 30s ; wget LB-API-Go-908865819.us-east-2.elb.amazonaws.com:8000/bruno
+      run: echo "REQUEST=0" >> $GITHUB_ENV ; sleep 30s ; wget LB-API-Go-908865819.us-east-2.elb.amazonaws.com:8000/bruno
 
     # Feito isso nossa requisição está pronta
     # Mas, o que acontece se a requisição der erro?
@@ -68,3 +68,21 @@ jobs:
 
     # OBS: Embora no passo anterior definimos (wait-for-service-stability), ou seja, esperar pela estabilidade do nosso serviço, pode acontecer do balanceador de carga não ter cadastrado.
     #      nosso container para começar a enviar as requisições a cada 10 segundos, conforme definimos.
+
+    # Já temos a primeira parte do processo de rollback que são a verificação da aplicação, em que montamos um 
+    # comando para realizar uma requisição para a aplicação.
+    # Agora podemos montar a segunda parte.
+    # Copiamos o deploy da task definition para o ECS e colamos abaixo da requisição.
+    # Depois disso vamos alterar o campo da task-definition, em vez de usar a saída de um passo (step)
+    # utilizaremos o arquivo que fizemos a cópia no inicio - o task-definitioon.json.old
+    
+    - name: Deploy Amazon ECS task definition
+      if: ${{  }}
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: task-definition.json.old
+        service: Servico_API-Go
+        cluster: API-GO
+        wait-for-service-stability: true
+
+    
