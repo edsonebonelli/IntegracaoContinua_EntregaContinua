@@ -23,10 +23,10 @@ jobs:
       uses: hashicorp/setup-terraform@v2.0.3
       
     # Analisa todos os arquivos presentes no diretório em que está sendo executado, baixa todas as bibliotecas (que são conhecidas como módulos), e inicia os arquivos de configuração necessários.
-    - run: terraform - chdir=Infra_CI/env/Homolog init
+    - run: terraform -chdir=Infra_CI/env/Homolog init
 
     # Analisa todos os arquivos presentes no diretório em que está sendo executado, verifica o que está descrito nos arquivos e o que temos atualmente presente na infraestrutura, além de criar ou modificar apenas o necessário.
-    - run: terraform - chdir=Infra_CI/env/Homolog apply -auto-approve
+    - run: terraform -chdir=Infra_CI/env/Homolog apply -auto-approve
 
     - run: echo "$(terraform - chdir=Infra_CI/env/Homolog output -raw IP_alb)"
       id: URL
@@ -65,7 +65,7 @@ jobs:
       run: sleep 60s ; locust -f locustfile.py --headless -u 10 -r 5 --run-time 60s -H http://${{ steps.URL.outputs.stdout }}
 
     # Realiza o oposto do terraform apply e destrói toda a infraestrutura que for igual à descrita nos arquivos.
-    - run: terraform - chdir=Infra_CI/env/Homolog destroy -auto-approve
+    - run: terraform -chdir=Infra_CI/env/Homolog destroy -auto-approve
     
 
  
