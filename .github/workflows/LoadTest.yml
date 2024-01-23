@@ -19,4 +19,59 @@ jobs:
 
     - run: git clone https://github.com/leollo98/Infra_CI
 
+    - name: HashiCorp - Setup Terraform
+      uses: hashicorp/setup-terraform@v2.0.3
+      
+    # Analisa todos os arquivos presentes no diretório em que está sendo executado, baixa todas as bibliotecas (que são conhecidas como módulos), e inicia os arquivos de configuração necessários.
+    - run: terraform - chdir=Infra_CI/env/Homolog init
+    
+    # Realiza o oposto do terraform apply e destrói toda a infraestrutura que for igual à descrita nos arquivos.
+    - run: terraform - chdir=Infra_CI/env/Homolog destroy -auto-approve
+
+    # Analisa todos os arquivos presentes no diretório em que está sendo executado, verifica o que está descrito nos arquivos e o que temos atualmente presente na infraestrutura, além de criar ou modificar apenas o necessário.
+    - run: terraform - chdir=Infra_CI/env/Homolog apply -auto-approve
+
+    - run: echo "$(terraform - chdir=Infra_CI/env/Homolog output -raw IP_alb)"
+      id: URL
+
+    # terraform -auto-approve: Não realiza perguntas e apenas executa. É similar ao -y do comando apt upgrade -y, onde nenhuma pergunta é realizada e o comando apenas aprova automaticamente todas as decisões.
+    # terraform -chdir=: Define uma pasta diferente da atual para ser executado, evitando assim ter que trocar de pasta a todo instante; auxilia caso a movimentação entre as pastas não for possível.
+
+    # INSTALANDO PYTHON SETUP
+    - name: Setup Python
+      uses: actions/setup-python@v5.0.0
+      with:
+        # Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.
+        python-version: 3.10
+
+    # INSTALANDO LOCUST COM PIP
+    - uses: BSFishy/pip-action@v1
+      with:
+        packages: |
+          locust
+
+    - run: |
+        echo "from locust import HttpUser, TaskSet, task, between" >> locustfile.py
+        echo "" >> locustfile.py
+        echo "class UserTasks(TaskSet):" >> locustfile.py
+        echo "	@task(1)" >> locustfile.py
+        echo "	def index(self):" >> locustfile.py
+        echo "		self.client.get("/edson")" >> locustfile.py
+        echo "" >> locustfile.py
+        echo "class WebsiteUser(HttpUser):" >> locustfile.py
+        echo "	tasks = [UserTasks]" >> locustfile.py
+        echo "	wait_time = between(1, 5)" >> locustfile.py
+
+    # Run locust script
+    # locust -f $file --headless -u $INPUT_USERS -r $INPUT_RATE --run-time $INPUT_RUNTIME -H $INPUT_URL
+    - name: Roda teste de carga
+      run: sleep 60s ; locust -f locustfile.py --headless -u 10 -r 5 --run-time 60s -H http://${{ step.URL.outputs.stdout }}
+    
+
+ 
+    
+          
+
+          
+
     
