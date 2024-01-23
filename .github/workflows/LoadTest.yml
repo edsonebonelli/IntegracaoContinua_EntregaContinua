@@ -24,9 +24,6 @@ jobs:
       
     # Analisa todos os arquivos presentes no diretório em que está sendo executado, baixa todas as bibliotecas (que são conhecidas como módulos), e inicia os arquivos de configuração necessários.
     - run: terraform - chdir=Infra_CI/env/Homolog init
-    
-    # Realiza o oposto do terraform apply e destrói toda a infraestrutura que for igual à descrita nos arquivos.
-    - run: terraform - chdir=Infra_CI/env/Homolog destroy -auto-approve
 
     # Analisa todos os arquivos presentes no diretório em que está sendo executado, verifica o que está descrito nos arquivos e o que temos atualmente presente na infraestrutura, além de criar ou modificar apenas o necessário.
     - run: terraform - chdir=Infra_CI/env/Homolog apply -auto-approve
@@ -66,6 +63,9 @@ jobs:
     # locust -f $file --headless -u $INPUT_USERS -r $INPUT_RATE --run-time $INPUT_RUNTIME -H $INPUT_URL
     - name: Roda teste de carga
       run: sleep 60s ; locust -f locustfile.py --headless -u 10 -r 5 --run-time 60s -H http://${{ step.URL.outputs.stdout }}
+
+    # Realiza o oposto do terraform apply e destrói toda a infraestrutura que for igual à descrita nos arquivos.
+    - run: terraform - chdir=Infra_CI/env/Homolog destroy -auto-approve
     
 
  
