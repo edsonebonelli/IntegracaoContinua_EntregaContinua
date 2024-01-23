@@ -28,7 +28,7 @@ jobs:
     # Analisa todos os arquivos presentes no diretório em que está sendo executado, verifica o que está descrito nos arquivos e o que temos atualmente presente na infraestrutura, além de criar ou modificar apenas o necessário.
     - run: terraform -chdir=Infra_CI/env/Homolog apply -auto-approve
 
-    - run: echo "$(terraform - chdir=Infra_CI/env/Homolog output -raw IP_alb)"
+    - run: echo "$(terraform -chdir=Infra_CI/env/Homolog output -raw IP_alb)"
       id: URL
 
     # terraform -auto-approve: Não realiza perguntas e apenas executa. É similar ao -y do comando apt upgrade -y, onde nenhuma pergunta é realizada e o comando apenas aprova automaticamente todas as decisões.
@@ -39,7 +39,7 @@ jobs:
       uses: actions/setup-python@v5.0.0
       with:
         # Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.
-        python-version: 3.10
+        python-version: "3.10"
 
     # INSTALANDO LOCUST COM PIP
     - uses: BSFishy/pip-action@v1
