@@ -35,4 +35,16 @@ jobs:
 
     - run: kubectl get svc
 
+    - run: kubectl create secret generic dbhost --from-literal=HOST=
+
+    - run: kubectl create secret generic dbport --from-literal=DBPORT=
+
+    - run: kubectl create secret generic dbuser --from-literal=USER=
+
+    - run: kubectl create secret generic dbpassword --from-literal=PASSWORD=
+
+    - run: kubectl create secret generic dbname --from-literal=DBNAME=
+
+    - run: kubectl create secret generic port --from-literal=PORT=
+
  
