@@ -18,3 +18,12 @@ jobs:
         aws-region: us-east-2
 
     - run: git clone https://github.com/leollo98/Infra_CI_Kubernetes.git
+
+    - name: HashiCorp - Setup Terraform
+      uses: hashicorp/setup-terraform@v2.0.3
+      
+    # Analisa todos os arquivos presentes no diretório em que está sendo executado, baixa todas as bibliotecas (que são conhecidas como módulos), e inicia os arquivos de configuração necessários.
+    - run: terraform -chdir=Infra_CI_Kubernets/env/Homolog init
+
+    - run: terraform -chdir=Infra_CI_Kubernets/env/Homolog apply -auto-approve
+ 
