@@ -68,10 +68,15 @@ jobs:
        #uses: ./.github/workflows/ECS.yml
        #secrets: inherit
 
-  LoadTest:
+  #LoadTest:
+       #needs: docker
+       #if: ${{ github.ref_name == 'Rollback_TesteDeCarga' }}
+       #uses: ./.github/workflows/LoadTest.yml
+       #secrets: inherit
+
+  Deploy_EKS:
        needs: docker
-       if: ${{ github.ref_name == 'Rollback_TesteDeCarga' }}
-       uses: ./.github/workflows/LoadTest.yml
+       uses: ./.github/workflows/EKS.yml
        secrets: inherit
   
   
